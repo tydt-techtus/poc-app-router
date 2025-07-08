@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import DataComponent from "./components/DataComponent";
-import DataComponent2 from "./components/DataComponent2";
 
 export const dynamic = "force-dynamic"; // Force dynamic rendering
 type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
@@ -22,20 +21,11 @@ export default async function Home(props: Props) {
   return (
     <>
       {withSuspense ? (
-        <>
-          <Suspense fallback={<div>Loading1...</div>}>
-            <DataComponent searchParams={searchParams} />
-          </Suspense>
-
-          <Suspense fallback={<div>Loading2...</div>}>
-            <DataComponent2 />
-          </Suspense>
-        </>
-      ) : (
-        <>
+        <Suspense fallback={<div>Loading1...</div>}>
           <DataComponent searchParams={searchParams} />
-          <DataComponent2 />
-        </>
+        </Suspense>
+      ) : (
+        <DataComponent searchParams={searchParams} />
       )}
     </>
   );
